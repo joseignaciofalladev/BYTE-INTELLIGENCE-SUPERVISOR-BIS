@@ -1,6 +1,5 @@
 // BYTE INTELLIGENCE SUPERVISOR (BIS) - Prototype implementation
 // C++17, single-file demo/prototype
-//
 // Compile: g++ -std=c++17 bis.cpp -pthread -O2 -o bis_demo
 // Run: ./bis_demo
 
@@ -16,10 +15,7 @@
 #include <sstream>
 using namespace std::chrono_literals;
 
-////////////////////////////////////////////////////////////////////////////////
 // Config & types
-////////////////////////////////////////////////////////////////////////////////
-
 struct Config {
     double decisionHz = 20.0;            // Decision tick frequency (Hz)
     size_t maxActionsPerTick = 8;        // Limit actions executed per tick
@@ -609,4 +605,5 @@ int main() {
     g_log.log(Logger::Info, "Simulation finished. Shutting down...");
     // destructor will join threads
     return 0;
+
 }
