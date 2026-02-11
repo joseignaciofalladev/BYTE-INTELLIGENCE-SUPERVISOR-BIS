@@ -22,6 +22,7 @@ struct Config {
     size_t maxBytesMovePerTick = 10 * 1024 * 1024; // 10 MB simulated budget per tick
     double sigmoidK = 1.0;               // scoring logistic factor
     double S0 = 64.0 * 1024.0;           // size denom for scoring (bytes)
+
     // scoring weights (beta)
     double betaU = 2.0;
     double betaP = 3.0;
@@ -39,9 +40,7 @@ static Timestamp NowMs() {
         .count();
 }
 
-////////////////////////////////////////////////////////////////////////////////
 // Utility: simple thread-safe logger
-////////////////////////////////////////////////////////////////////////////////
 class Logger {
     std::mutex m_;
 public:
@@ -53,10 +52,7 @@ public:
     }
 } g_log;
 
-////////////////////////////////////////////////////////////////////////////////
 // Resource model & telemetry
-////////////////////////////////////////////////////////////////////////////////
-
 enum class ResourceType { Texture, Mesh, Audio, Animation, Latent, Shader, Probe, Other };
 
 struct ResourceID {
@@ -607,3 +603,4 @@ int main() {
     return 0;
 
 }
+
