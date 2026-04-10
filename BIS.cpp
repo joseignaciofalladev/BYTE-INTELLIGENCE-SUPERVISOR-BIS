@@ -2,7 +2,6 @@
 // C++17, single-file demo/prototype
 // Compile: g++ -std=c++17 bis.cpp -pthread -O2 -o bis_demo
 // Run: ./bis_demo
-
 #include <bits/stdc++.h>
 #include <atomic>
 #include <chrono>
@@ -407,7 +406,6 @@ public:
         return plan;
     }
 };
-
 // Forensics / PASS lesson emitter (simple)
 struct Lesson {
     std::string lessonID;
@@ -418,7 +416,6 @@ struct Lesson {
     double confidence;
     std::string evidence;
 };
-
 class PassBridge {
     std::mutex m_;
 public:
@@ -431,7 +428,6 @@ public:
         g_log.log(Logger::Info, "PASS lesson emitted: " + ss.str());
     }
 };
-
 // BIS core: DecisionTick loop & orchestration
 class BIS {
     ResourceTable &rt_;
@@ -528,10 +524,8 @@ public:
 // Demo: simulate resources, touches and BIS behavior
 int main() {
     g_log.log(Logger::Info, "BIS prototype starting...");
-
     ResourceTable rt;
     TelemetryAgent tele(rt);
-
     // create a mix of resources
     std::vector<ResourceID> all;
     all.push_back(tele.create(ResourceType::Texture, 4*1024*1024, 10.0, "albedo_city_1K"));
@@ -542,15 +536,12 @@ int main() {
     all.push_back(tele.create(ResourceType::Shader,  64*1024,   0.2, "pbr_material_shader"));
     all.push_back(tele.create(ResourceType::Texture, 6*1024*1024, 12.0,"hero_character_diffuse"));
     all.push_back(tele.create(ResourceType::Texture, 512*1024,  3.0, "grass_albedo"));
-
     // mark hero resource pinned
     tele.pin(all[6], true);
-
     // adjust some perceptual importance & dedupe potential
     tele.setPerceptual(all[0], 0.8); // city albedo high P
     tele.setPerceptual(all[7], 0.15); // grass low P
     tele.setDedupe(all[1], 0.9); // brick dedupe candidate
-
     // create executor & pass bridge & BIS
     PassBridge pass;
     Executor exec(rt);
@@ -575,12 +566,8 @@ int main() {
         }
         std::this_thread::sleep_for(50ms);
     }
-
     // cleanup
     g_log.log(Logger::Info, "Simulation finished. Shutting down...");
     // destructor will join threads
     return 0;
-
 }
-
-
